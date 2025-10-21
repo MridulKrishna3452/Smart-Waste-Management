@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-recycle"></i> Smart Waste Management</h1>
+            <p>Monitor and manage waste bins efficiently</p>
+        </header>
+
+        <div class="main-content">
+            <div class="controls-panel">
+                <button class="btn btn-primary" onclick="showAddBinModal()">
+                    <i class="fas fa-plus"></i> Add Bin
+                </button>
+                <button class="btn btn-warning" onclick="showUpdateFillModal()">
+                    <i class="fas fa-edit"></i> Update Fill Level
+                </button>
+                <button class="btn btn-success" onclick="showPickupModal()">
+                    <i class="fas fa-truck"></i> Record Pickup
+                </button>
+                <button class="btn btn-info" onclick="loadBins()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="waste-table" id="wasteTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Fill Level</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bin Modal -->
+    <div id="addBinModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Waste Bin</h2>
+                <span class="close" onclick="closeModal('addBinModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addBinForm">
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" required placeholder="Enter bin location">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Waste Type:</label>
+                        <select id="type" name="type" required>
+                            <option value="">Select waste type</option>
+                            <option value="General">General</option>
+                            <option value="Recyclable">Recyclable</option>
+                            <option value="Organic">Organic</option>
+                            <option value="Hazardous">Hazardous</option>
+                            <option value="Electronic">Electronic</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('addBinModal')">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Bin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Fill Level Modal -->
+    <div id="updateFillModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Fill Level</h2>
+                <span class="close" onclick="closeModal('updateFillModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="updateFillForm">
+                    <div class="form-group">
+                        <label for="fillLevel">Fill Level (%):</label>
+                        <input type="number" id="fillLevel" name="fillLevel" min="0" max="100" required placeholder="0-100">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('updateFillModal')">Cancel</button>
+                        <button type="submit" class="btn btn-warning">Update Fill Level</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Record Pickup Modal -->
+    <div id="pickupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Record Pickup</h2>
+                <span class="close" onclick="closeModal('pickupModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="pickupForm">
+                    <div class="form-group">
+                        <label for="collectedWeight">Collected Weight (kg):</label>
+                        <input type="number" id="collectedWeight" name="collectedWeight" step="0.01" min="0" required placeholder="Enter weight in kg">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('pickupModal')">Cancel</button>
+                        <button type="submit" class="btn btn-success">Record Pickup</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
